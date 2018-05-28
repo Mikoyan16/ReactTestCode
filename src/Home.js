@@ -4,7 +4,6 @@ import ReactAutocomplete from 'react-autocomplete';
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.handleLogout = this.handleLogout.bind(this);
         this.searchGalaxy = '';
         this.state = {
             result : [],
@@ -28,10 +27,6 @@ class Home extends Component {
                 }
             }
         })
-    }
-
-    handleLogout = () => {
-        this.props.handleLogout();
     }
 
     render() {
@@ -60,7 +55,7 @@ class Home extends Component {
                 />
             </div>
             <div>
-                <button type = 'submit' onClick = {this.handleLogout}>Throw me out</button>
+                <button type = 'submit' onClick = {this.props.handleLogout}>Throw me out</button>
             </div>
         </div>
         );
