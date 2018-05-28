@@ -3,13 +3,13 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 import $ from "jquery";
 
 ReactDOM.render(
     <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <App />
+        <Route exact path={`/`} component={App} />
     </BrowserRouter>,
     document.getElementById('root'),
     function() {
