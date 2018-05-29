@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Home from './Home';
 
 class Login extends Component {
@@ -59,7 +59,7 @@ class Login extends Component {
             });
         } else {
             var matched = false;
-            for(var i=0; i<this.state.result.length; i++) {
+            for(let i=0; i<this.state.result.length; i++) {
                 if(this.userName === this.state.result[i].name && this.password === this.state.result[i].birth_year){  
                     // console.log('Login successful.');
                     // this.props.history.push('/home');

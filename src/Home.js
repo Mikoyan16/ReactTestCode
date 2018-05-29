@@ -4,11 +4,13 @@ import ReactAutocomplete from 'react-autocomplete';
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.searchGalaxy = '';
+        this.findPlanet = this.findPlanet.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
         this.state = {
             result : [],
             planets : [],
-            query : ''
+            query : '',
+            planetInfo: ''
         }
     }
 
@@ -19,14 +21,36 @@ class Home extends Component {
         })
         .then(data => {
             this.setState({result : data.results});
-            // console.log(this.state.result);
             
-            for(var i=0; i<this.state.result.length; i++) {
+            for(let i=0; i<this.state.result.length; i++) {
                 if(this.state.result[i].population !== 'unknown') {
                 this.state.planets.push({id:this.state.result[i].population, label: this.state.result[i].name});
                 }
             }
         })
+    }
+
+    findPlanet(planetName) {
+        this.setState({ query: planetName });
+        for(let i=0; i<this.state.result.length; i++) {
+            if(this.state.result[i].name === planetName) {
+                this.setState({
+                    planetInfo : Object.entries( this.state.result[i]).map(([key, value]) => {
+                    return (
+                        <div key = {key}>{key} : {value.toString()}</div>
+                    );
+                })});
+                break;
+            }
+        }
+    }
+
+    handleLogout() {
+        this.setState({
+            query: "",
+            planetInfo: ""
+        });
+        this.props.handleLogout();
     }
 
     render() {
@@ -51,11 +75,12 @@ class Home extends Component {
                     }
                     value={this.state.query}
                     onChange={e => this.setState({ query: e.target.value })}
-                    onSelect={value => this.setState({ value })}
+                    onSelect={value => this.findPlanet(value)}
                 />
             </div>
+            <div>{this.state.planetInfo}</div>
             <div>
-                <button type = 'submit' onClick = {this.props.handleLogout}>Throw me out</button>
+                <button type = 'submit' onClick = {this.handleLogout}>Throw me out</button>
             </div>
         </div>
         );
